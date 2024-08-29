@@ -6,6 +6,7 @@ class CustomNoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin:const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: Colors.orange[200],
@@ -18,14 +19,14 @@ class CustomNoteItem extends StatelessWidget {
             ListTile(
               title: const Text(
                 "DATA",
-                style: TextStyle(fontSize: 24, color: Colors.black),
+                style: TextStyle(fontSize: 26, color: Colors.black),
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
                   "data  data  data  data  data  data ",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 18,
                     color: Colors.black.withOpacity(0.5),
                   ),
                 ),
@@ -38,7 +39,7 @@ class CustomNoteItem extends StatelessWidget {
              Padding(
               padding:const EdgeInsets.only(right: 24),
               child: Text("data  data  data",style: TextStyle(
-                fontSize: 16,color: Colors.black.withOpacity(0.5)
+                fontSize: 14,color: Colors.black.withOpacity(0.5)
               ),),
             )
           ],
