@@ -14,14 +14,17 @@ class AddBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            CustomTextField(hint: "tital"),
+            CustomTextField(hint: "title"),
             SizedBox(height: 24),
             CustomTextField(
               hint: "data",
               maxLines: 4,
             ),
-            SizedBox(height: 24),
-            CustomButton(),
+            //SizedBox(height: 24),
+            Padding(
+              padding: EdgeInsets.only(top: 32, bottom: 16),
+              child: CustomButton(),
+            ),
           ],
         ),
       ),
@@ -43,7 +46,11 @@ class CustomButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {},
-        child: const Text("Add"),
+        child: const Text("Add",
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold)),
       ),
     );
   }
