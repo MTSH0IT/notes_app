@@ -1,6 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/CostomTextField.dart';
 import 'package:notes_app/views/widgets/custom_button.dart';
 
@@ -11,10 +16,30 @@ class AddBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: SingleChildScrollView(
-        child: AddNoteForm(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: BlocConsumer<AddNoteCubit, AddNoteState>(
+        listener: (context, state) {
+          if (state is AddNoteFailer) {
+            log(state.error);
+          }
+
+          if (state is AddNoteSuccess) {
+            log("success");
+            Navigator.pop(context);
+          }
+          if (state is AddNoteLoading) {
+            log("loading");
+          }
+        },
+        builder: (context, state) {
+          return ModalProgressHUD(
+            inAsyncCall: state is AddNoteLoading?true:false,
+            child: const SingleChildScrollView(
+              child: AddNoteForm(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -62,8 +87,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
               ontap: () {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
-                  Navigator.pop(context);
-                  log("title=$title / subTitle=$subTitle");
+                  NoteModel note = NoteModel(
+                    title: title!,
+                    subTitle: subTitle!,
+                    date: DateTime.now().toString(),
+                    color: Colors.blue.value,
+                  );
+                  BlocProvider.of<AddNoteCubit>(context).addNote(note);
                 } else {
                   setState(() {
                     mode = AutovalidateMode.always;
