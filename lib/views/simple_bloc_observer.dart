@@ -1,35 +1,34 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SimpleBlocObserver implements BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
-    debugPrint('onChange(${bloc.runtimeType}, $change)');
+    log('onChange(${bloc.runtimeType}, $change)');
   }
 
   @override
   void onClose(BlocBase bloc) {
-    // TODO: implement onClose
+    log('onClose(${bloc.runtimeType})');
   }
 
   @override
   void onCreate(BlocBase bloc) {
-    // TODO: implement onCreate
+    log('onCreate(${bloc.runtimeType})');
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    // TODO: implement onError
+    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
   }
 
   @override
   void onEvent(Bloc bloc, Object? event) {
-    // TODO: implement onEvent
+    log('onEvent(${bloc.runtimeType}, $event)');
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    // TODO: implement onTransition
+    log('onTransition(${bloc.runtimeType}, $transition)');
   }
-  
 }
